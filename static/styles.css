@@ -1,0 +1,115 @@
+/* General body and background */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif; /* Apply Montserrat font */
+}
+
+body {
+    color: #f0f0f0; /* Light color for text */
+    background-color: #121212; /* Dark background color */
+}
+
+/* Background image */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/static/cyberpunk-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px); /* Apply blur effect */
+    z-index: -1; /* Place behind other content */
+}
+
+/* General container styles */
+.container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(85, 68, 83, 0.845); /* Updated color */
+    color: #f0f0f0;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: rgba(85, 68, 83, 0.845) !important; /* Updated color */
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #f0f0f0 !important; /* Default text color for navbar links */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light background color on hover */
+    color: #f0f0f0; /* Text color on hover */
+}
+
+.navbar-brand {
+    color: #f0f0f0 !important; /* White text for the brand */
+}
+
+/* Form styles */
+.form-control {
+    background-color: rgba(85, 68, 83, 0.845); /* Updated color */
+    color: #f0f0f0;
+    border: 1px solid #444; /* Subtle border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.form-control::placeholder {
+    color: #888; /* Slightly lighter placeholder text */
+}
+
+/* Button styles */
+.btn, .btn-primary {
+    background-color: rgba(85, 68, 83, 0.845) !important; /* Updated color */
+    color: #f0f0f0 !important;
+    border: 1px solid #444 !important; /* Subtle border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.btn:hover, .btn-primary:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #f0f0f0 !important;
+    border: 1px solid #444 !important;
+}
+
+/* Layout for generate page */
+.generate-container {
+    display: flex;
+    justify-content: space-between; /* Place form and results side by side */
+    align-items: flex-start; /* Align items to the top */
+    gap: 20px; /* Space between form and results */
+}
+
+.generate-form, .generate-results {
+    width: 48%; /* Width of the form and results */
+}
+
+.generate-form {
+    padding: 20px;
+    background-color: rgba(85, 68, 83, 0.6); /* Slightly lighter background for form */
+    border-radius: 10px;
+}
+
+.generate-results {
+    padding: 20px;
+    background-color: rgba(85, 68, 83, 0.6); /* Slightly lighter background for results */
+    border-radius: 10px;
+}
+
+.results-section {
+    margin-bottom: 20px;
+}
+
+.results-section h4 {
+    margin-bottom: 10px;
+}

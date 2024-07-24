@@ -1,0 +1,8 @@
+__pycache__/
+.env
+Comments.csv
+.DS_Store
+final/
+output/
+test_output/
+venv.

@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block title %}Generate{% endblock %}
+
+{% block body_class %}generate-page{% endblock %}
+
+{% block content %}
+<div class="container text-white">
+    <p class="text-center mb-4">
+        I used the transformers library to fine-tune GPT-2, using about 1,000 Cyberpunk 2077 related video titles and 
+        about 750 English sentences (in hope of maintaining the model's ability to adhere to basic English). I prefixed each title with "Title:" 
+        and each sentence with "General Sentence:" before training. Try messing around with prompts and other parameters and see how my 
+        fine-tuned model does versus the pre-trained GPT-2! Example: Cyberpunk 2077 katana
+    </p>
+
+    <div class="generate-container">
+        <div class="generate-form">
+            <form method="post">
+                <div class="form-group">
+                    <label for="prompt">Prompt:</label>
+                    <input type="text" id="prompt" name="prompt" class="form-control" placeholder="Enter your prompt here..." required>
+                </div>
+                <div class="form-group">
+                    <label for="temperature">Temperature:</label>
+                    <input type="range" id="temperature" name="temperature" class="form-control-range" value="0.7" min="0.1" max="2.0" step="0.1" required>
+                    <span id="temperatureValue">0.7</span>
+                </div>
+                <div class="form-group">
+                    <label for="top_k">Top K:</label>
+                    <input type="range" id="top_k" name="top_k" class="form-control-range" value="45" min="1" max="100" required>
+                    <span id="topKValue">45</span>
+                </div>
+                <div class="form-group">
+                    <label for="top_p">Top P:</label>
+                    <input type="range" id="top_p" name="top_p" class="form-control-range" value="0.9" min="0.1" max="1.0" step="0.1" required>
+                    <span id="topPValue">0.9</span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Generate Title</button>
+            </form>
+        </div>
+
+        <div class="generate-results">
+            <h3>Generated Titles:</h3>
+            {% if fine_tuned_titles or pretrained_titles %}
+                <div class="results-section">
+                    <h4>Fine-tuned Model Results:</h4>
+                    <ul>
+                        {% for title in fine_tuned_titles %}
+                            <li>{{ title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="results-section">
+                    <h4>Pre-trained Model Results:</h4>
+                    <ul>
+                        {% for title in pretrained_titles %}
+                            <li>{{ title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <p>No results to display.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('temperature').addEventListener('input', function() {
+        document.getElementById('temperatureValue').innerText = this.value;
+    });
+
+    document.getElementById('top_k').addEventListener('input', function() {
+        document.getElementById('topKValue').innerText = this.value;
+    });
+
+    document.getElementById('top_p').addEventListener('input', function() {
+        document.getElementById('topPValue').innerText = this.value;
+    });
+</script>
+{% endblock %}
