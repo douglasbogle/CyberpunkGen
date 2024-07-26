@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from models import db, User, Video
 from generate import TitleGenerator
+import git
 
 
 app = Flask(__name__)
@@ -30,15 +31,15 @@ def generate():
     return render_template('generate.html')
 
 
-'''@app.route("/update_server", methods=['POST'])
+@app.route("/update_server", methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('')
+        repo = git.Repo('/home/cyberpunkgen/CyberpunkGen')
         origin = repo.remotes.origin
         origin.pull()
         return 'Updated PythonAnywhere successfully', 200
     else:
-        return 'Wrong event type', 400'''
+        return 'Wrong event type', 400
 
 
 if __name__ == '__main__':
