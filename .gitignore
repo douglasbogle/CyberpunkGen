@@ -6,3 +6,4 @@ final/
 output/
 test_output/
 venv/
+results/optimizer.pt
