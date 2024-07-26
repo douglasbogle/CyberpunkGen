@@ -40,7 +40,8 @@ class TitleGenerator:
                 temperature=temperature,
                 top_k=top_k,
                 top_p=top_p,
-                num_return_sequences=1
+                num_return_sequences=1,
+                do_sample=True
             )
 
         # Decode and cleanup titles,  DONT REMOVE PROMPT

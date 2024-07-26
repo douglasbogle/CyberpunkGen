@@ -38,7 +38,8 @@ class VideoTrainer:
                 for line in file:
                     sentence = line.strip()
                     if sentence:
-                        raw_titles.append('General sentence: ' + sentence)
+                        raw_titles.append('sentence: ' + sentence)
+                        # for yt videos make it katana/.. sentence:
 
             return raw_titles
 
