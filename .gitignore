@@ -9,3 +9,5 @@ venv/
 results/optimizer.pt
 classified/checkpoint-820/optimizer.pt
 classified/checkpoint-820/scheduler.pt
+results/
+test_model.py
