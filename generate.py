@@ -6,8 +6,9 @@ import torch
 class TitleGenerator:
     def __init__(self):
         #FINE_TUNED_PATH = './output/checkpoint-1104'
-        FINE_TUNED_PATH = './results'
+        #FINE_TUNED_PATH = './results'
         #FINE_TUNED_PATH = './final'
+        FINE_TUNED_PATH = './classified'
 
         # Initialize fine-tuned model
         self.fine_tuned_tokenizer = AutoTokenizer.from_pretrained(FINE_TUNED_PATH)

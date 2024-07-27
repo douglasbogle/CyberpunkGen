@@ -4,7 +4,7 @@ import requests
 import html
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
-from titles import searches
+from titles import searches, categories
 from models import db, Video
 
 load_dotenv()
@@ -56,7 +56,7 @@ class YoutubeDataHandler:
 
 
     # Parse out titles
-    def populate_db(self, info):
+    def populate_db(self, info, category):
         if not isinstance(info, dict) or not info or 'items' not in info:  # Error fetching titles
             print("Error")
             exit(0)
@@ -66,7 +66,7 @@ class YoutubeDataHandler:
 
         video_dict = {}
         for item in (info['items']):
-            video_title = item['snippet']['title']
+            video_title = category + item['snippet']['title']  # Classify category to improve model output
             video_id = item['id']['videoId']
             upload_time = item['snippet']['publishedAt']
             video_dict[video_id] = [video_title, video_id, upload_time]
@@ -117,7 +117,6 @@ class YoutubeDataHandler:
 
                 video_title, video_id, upload_time, view_count, video_tags = data
                  # Store titles with a label to help model understand they are titles
-                video_title = 'Title: ' + video_title
 
                 upload_time = datetime.strptime(upload_time, '%Y-%m-%dT%H:%M:%SZ').date()
 
@@ -137,11 +136,11 @@ class YoutubeDataHandler:
 
 
     # Populate database with videos that our model will be trained on
-    def get_videos(self, searches):
-        for title in searches:
+    def get_videos(self, searches, categories):
+        for title, category in zip(searches, categories):
             results = self.search(title)
             if results:
-                video_dict = self.populate_db(results)
+                video_dict = self.populate_db(results, category)
                 if video_dict:
                     video_dict = self.videos(video_dict)
                     print(video_dict)
@@ -151,4 +150,5 @@ class YoutubeDataHandler:
 
 if __name__ == '__main__':
     data_handler = YoutubeDataHandler()
-    data_handler.get_videos(searches)  # Use youtube searches from titles.py
+    data_handler.get_videos(searches, categories)  # Use youtube searches from titles.py
+

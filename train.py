@@ -8,7 +8,7 @@ from transformers import GPT2LMHeadModel, AutoTokenizer, Trainer, TrainingArgume
 from flask import Flask
 from models import db, Video  # Import db from models
 from config import Config  # Import your configuration file
-import pandas as pd
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -18,7 +18,7 @@ db.init_app(app)
 class VideoTrainer:
     def __init__(self):
         self.device = 'cpu'  # No gpu to use :(, M2 is funky
-        self.model_dir = './final'  # Directory where the already fine-tuned model is saved
+        self.model_dir = './classified'  # Directory where the already fine-tuned model is saved
         self.tokenizer = AutoTokenizer.from_pretrained('gpt2')
         self.model = GPT2LMHeadModel.from_pretrained('gpt2')
         self.model.to(self.device)
@@ -44,7 +44,8 @@ class VideoTrainer:
             return raw_titles
 
 
-    def get_more_data(self):
+    # Experimental function, not used
+    '''def get_more_data(self):
         raw_comments = []
         with open('sampled_comments.txt', 'r') as file:
                 for line in file:
@@ -53,12 +54,12 @@ class VideoTrainer:
                     if sentence:  # Ensure the line is not empty
                         raw_comments.append('Comment: ' + sentence)
        
-        return raw_comments
+        return raw_comments'''
 
 
     def clean_text(self, text):
         # Remove non-alphanumeric characters except periods and spaces
-        text = re.sub(r'[^A-Za-z0-9\s.:]', '', text)
+        text = re.sub(r'[^A-Za-z0-9\s.:,]', '', text)
         text = text.lower().strip()
         return text
 
@@ -76,9 +77,7 @@ class VideoTrainer:
 
     def train(self):
         # Load dataset and tokenizer
-        titles_and_sentences = self.get_data()
-        comments = self.get_more_data()
-        combined_data = titles_and_sentences + comments
+        combined_data = self.get_data()
         tokenized_data = self.tokenize_dataset(combined_data)
 
         training_args = TrainingArguments(

@@ -26,4 +26,37 @@ searches = [
     'Meet hanako at embers',
     'Cyberpunk maxtac',
     'Cyberpunk lore',
+    'Cyberpunk net samurai'
+    'Cyberpunk dakota'
+]
+
+categories = [
+    'Cyberpunk sentence: ',
+    'Samurai Build sentence:',
+    'Cyberpunk sentence: ',
+    'Cyberpunk sentence: ',
+    'Sandevstian sentence: ',
+    'Gorilla Arms sentence:',
+    'letsplay sentence: ',
+    'mission sentence: ',
+    'netrunner sentence: ',
+    'Johnny sentence: ',
+    'best weapons sentence: ',
+    'Katana sentence',
+    'Cyberpunk sentence: ',
+    'builds sentence: ',
+    'Iconic Cyberware sentence: ',
+    'wakako sentence: ',
+    'gigs sentence: ',
+    'adam smasher sentence: ',
+    'Boss sentence: ',
+    'gameplay sentence: ',
+    'Cyberpunk sentence: ',
+    'Aggressive Gameplay sentence: ',
+    'Katana build sentence: ',
+    'Meet hanako at embers sentence: ',
+    'maxtac sentence: ',
+    'lore sentence: ',
+    'net samurai sentence: '
+    'dakota sentence: '
 ]
