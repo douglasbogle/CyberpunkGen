@@ -18,9 +18,9 @@ db.init_app(app)
 class VideoTrainer:
     def __init__(self):
         self.device = 'cpu'  # No gpu to use :(, M2 is funky
-        self.model_dir = './classified'  # Directory where the already fine-tuned model is saved
-        self.tokenizer = AutoTokenizer.from_pretrained('gpt2')
-        self.model = GPT2LMHeadModel.from_pretrained('gpt2')
+        self.model_dir = './classified'  # Directory where the fine-tuned model will be/is saved
+        self.tokenizer = AutoTokenizer.from_pretrained('gpt2')  # Auto-initialize tokenizer
+        self.model = GPT2LMHeadModel.from_pretrained('gpt2')  # Fine tune gpt2
         self.model.to(self.device)
 
         if self.tokenizer.pad_token is None:
@@ -33,32 +33,19 @@ class VideoTrainer:
             titles = Video.query.with_entities(Video.title).all()
             raw_titles = [title[0] for title in titles]  # Get Cyberpunk youtube titles stored in db
 
-            # Add a bunch of general english sentences to raw_titles
+            # Add general english sentences to dataset to maintain language understanding
             with open('sentences.txt', 'r') as file:
                 for line in file:
                     sentence = line.strip()
                     if sentence:
                         raw_titles.append('sentence: ' + sentence)
-                        # for yt videos make it katana/.. sentence:
+                        # prefix sentences accordingly
 
             return raw_titles
 
 
-    # Experimental function, not used
-    '''def get_more_data(self):
-        raw_comments = []
-        with open('sampled_comments.txt', 'r') as file:
-                for line in file:
-                    # Strip any leading/trailing whitespace and prefix each line
-                    sentence = line.strip()
-                    if sentence:  # Ensure the line is not empty
-                        raw_comments.append('Comment: ' + sentence)
-       
-        return raw_comments'''
-
-
     def clean_text(self, text):
-        # Remove non-alphanumeric characters except periods and spaces
+        # Remove non-alphanumeric characters except periods, spaces, colons, commas
         text = re.sub(r'[^A-Za-z0-9\s.:,]', '', text)
         text = text.lower().strip()
         return text
@@ -67,7 +54,7 @@ class VideoTrainer:
     def tokenize_dataset(self, raw_data):
         cleaned_data = [self.clean_text(title) for title in raw_data]  # Preprocess/cleanup titles
         dataset = Dataset.from_dict({"text": cleaned_data})
-        tokenized_dataset = dataset.map(
+        tokenized_dataset = dataset.map(  # Use mapping to tokenize entire dataset
             lambda x: self.tokenizer(x['text'], padding="max_length", truncation=True, max_length=128), 
              batched=True
         )

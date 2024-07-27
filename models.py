@@ -6,7 +6,7 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 
 
-# Define DB models here
+# Define DB models here using ORM
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)

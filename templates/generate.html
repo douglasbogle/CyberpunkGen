@@ -7,10 +7,11 @@
 {% block content %}
 <div class="container text-white">
     <p class="text-center mb-4">
-        I used the transformers library to fine-tune GPT-2, using about 1,000 Cyberpunk 2077 related video titles and 
-        about 750 English sentences (in hope of maintaining the model's ability to adhere to basic English). I prefixed each title with "Title:" 
-        and each sentence with "General Sentence:" before training. Try messing around with prompts and other parameters and see how my 
-        fine-tuned model does versus the pre-trained GPT-2! Example: Cyberpunk 2077 katana
+        I'm experimenting with using the transformers library and pytorch to fine-tune GPT-2. My dataset consists of ~750 English
+        sentences, each prefixed with 'sentence: '. Additionally, it consists of ~900 Cyberpunk video titles, each prefixed with their 
+        'category' i.e. 'katana' AND the word 'sentence'. For example, a video title about katanas may look like 'katana sentence: Best 
+        katanas in Cyberpunk 2077'. The aim of this is to reinforce gpt2's English understanding and try to prevent it from overfitting
+        itself to cyberpunk titles. Also, I've included options to adjust parameters so make sure to experiment with those too!
     </p>
 
     <div class="generate-container">

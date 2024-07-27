@@ -70,7 +70,7 @@ body::before {
 
 /* Button styles */
 .btn, .btn-primary {
-    background-color: rgba(85, 68, 83, 0.845) !important; /* Updated color */
+    background-color: rgba(59, 52, 58, 0.845) !important; /* Updated color */
     color: #f0f0f0 !important;
     border: 1px solid #444 !important; /* Subtle border */
     border-radius: 5px; /* Rounded corners */

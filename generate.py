@@ -5,9 +5,6 @@ import torch
 
 class TitleGenerator:
     def __init__(self):
-        #FINE_TUNED_PATH = './output/checkpoint-1104'
-        #FINE_TUNED_PATH = './results'
-        #FINE_TUNED_PATH = './final'
         FINE_TUNED_PATH = './classified'
 
         # Initialize fine-tuned model
@@ -45,11 +42,11 @@ class TitleGenerator:
                 do_sample=True
             )
 
-        # Decode and cleanup titles,  DONT REMOVE PROMPT
+        # Decode and cleanup titles
         titles = [tokenizer.decode(output_seq, skip_special_tokens=True) for output_seq in output]
         return [self.postprocess_title(title, prompt) for title in titles]
         
-
+    # Cleanup generated titles, capitalize first word, remove unecessary chars and spaces
     def postprocess_title(self, title, prompt):
         title = title[len(prompt):]  # Remove the prompt from the beginning
         title = title.capitalize()

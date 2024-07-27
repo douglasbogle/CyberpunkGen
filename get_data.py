@@ -112,12 +112,8 @@ class YoutubeDataHandler:
 
     def save_to_db(self, video_dict):
         with app.app_context():
-            for data in video_dict.values():
-                
-
+            for data in video_dict.values():  
                 video_title, video_id, upload_time, view_count, video_tags = data
-                 # Store titles with a label to help model understand they are titles
-
                 upload_time = datetime.strptime(upload_time, '%Y-%m-%dT%H:%M:%SZ').date()
 
                 # Check if video_id already exists
@@ -150,5 +146,5 @@ class YoutubeDataHandler:
 
 if __name__ == '__main__':
     data_handler = YoutubeDataHandler()
-    data_handler.get_videos(searches, categories)  # Use youtube searches from titles.py
+    data_handler.get_videos(searches, categories)  # Use youtube searches and categories from titles.py
 
